@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us - Rehoboth Collections</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f7f7;
+      color: #333;
+    }
+
+    /* Header */
+    header {
+      background-color: #002147; /* Dark blue */
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .logo-title {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    header h1 {
+      font-size: 1.75rem;
+      margin: 0;
+      color: white;
+      font-weight: 700;
+    }
+
+    .highlight {
+      color: #ff6600;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      font-size: 1.1rem;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: #ff6600;
+      text-decoration: underline;
+    }
+
+    /* Contact Form Section */
+    .contact-container {
+      max-width: 700px;
+      margin: 4rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .contact-container h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .contact-form label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
+      color: #444;
+      font-size: 1rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.9rem;
+      margin-top: 0.4rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      color: #333;
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+    }
+
+    .contact-form button {
+      margin-top: 2rem;
+      background-color: #ff6600;
+      color: white;
+      padding: 1rem;
+      width: 100%;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .contact-form button:hover {
+      background-color: #e65c00;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #002147; /* Dark blue */
+      padding: 2rem 1rem;
+      color: white;
+      text-align: center;
+      margin-top: 4rem;
+    }
+
+    footer .social a {
+      color: #ff6600;
+      margin: 0 15px;
+      font-size: 1.1rem;
+      text-decoration: none;
+    }
+
+    footer .social a:hover {
+      color: white;
+      text-decoration: underline;
+    }
+
+    footer p {
+      margin-top: 1rem;
+      font-size: 1rem;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo-title">
+    <img src="logo.png" alt="Rehoboth Logo" class="logo">
+    <h1><span class="highlight">Rehoboth</span> Collections</h1>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="cart.html">Cart</a>
+    <a href="checkout.html">Checkout</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<!-- Contact Form Section -->
+<div class="contact-container">
+  <h2>Contact Us</h2>
+  <form class="contact-form" action="https://formsubmit.co/joemutugi291@gmail.com" method="POST">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="thankyou.html">
+    <input type="hidden" name="_subject" value="New Contact Message from Rehoboth Collections">
+
+    <label for="name">Full Name</label>
+    <input type="text" id="name" name="Name" required>
+
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="Email" required>
+
+    <label for="message">Message</label>
+    <textarea id="message" name="Message" rows="6" required placeholder="Write your message..."></textarea>
+
+    <button type="submit">Send Message</button>
+  </form>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="social">
+    <a href="https://facebook.com/rehobothcollections" target="_blank">Facebook</a> |
+    <a href="https://instagram.com/rehobothcollections" target="_blank">Instagram</a> |
+    <a href="https://twitter.com/rehobothco" target="_blank">Twitter</a>
+  </div>
+  <p>&copy; 2025 Rehoboth Collections. Designed by Eng. Blessed Joe.</p>
+</footer>
+
+</body>
+</html>
