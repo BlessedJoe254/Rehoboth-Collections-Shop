@@ -5,6 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rehoboth Collections - Cart</title>
   <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+
+    .cart-container {
+      max-width: 700px;
+      margin: 3rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .cart-container h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 1.5rem;
+    }
+
+    .cart-items {
+      margin-top: 1.5rem;
+    }
+
+    footer {
+      background-color: #001f4d;
+      color: white;
+      padding: 1.5rem 0;
+      text-align: center;
+    }
+
+    footer .social a {
+      color: white;
+      margin: 0 10px;
+      font-size: 1.2rem;
+      text-decoration: none;
+    }
+
+    footer .social a:hover {
+      color: #ff9900;
+    }
+
+    footer p {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
 
@@ -26,7 +78,7 @@
   </header>
 
   <!-- Cart Section -->
-  <section class="cart">
+  <section class="cart-container">
     <h2>Your Shopping Cart</h2>
     
     <div class="cart-items" id="cart-items">
@@ -49,10 +101,11 @@
   <!-- Footer -->
   <footer>
     <div class="social">
-      <a href="https://wa.me/254726459569" target="_blank">WhatsApp</a> |
-      <a href="https://vm.tiktok.com/ZMBp1K8cq/" target="_blank">TikTok</a> |
-      <a href="https://www.facebook.com/janet.wanjiru.940" target="_blank">Facebook</a> |
-      <a href="https://instagram.com/rehobothcollections" target="_blank">Instagram</a>
+      <a href="https://wa.me/254726459569" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://vm.tiktok.com/ZMBp1K8cq/" target="_blank"><i class="fab fa-tiktok"></i></a>
+      <a href="https://www.facebook.com/janet.wanjiru.940" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://instagram.com/rehobothcollections" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="mailto:joemutugi291@gmail.com"><i class="fas fa-envelope"></i></a>
     </div>
     <p>&copy; 2025 Rehoboth Collections. Designed by Eng. Blessed Joe.</p>
   </footer>

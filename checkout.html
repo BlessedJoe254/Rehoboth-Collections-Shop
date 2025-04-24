@@ -6,6 +6,7 @@
   <title>Checkout - Rehoboth Collections</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <style>
     body {
@@ -75,6 +76,24 @@
 
     .form-section {
       margin-top: 2rem;
+    }
+
+    footer {
+      background-color: #001f4d;
+      color: white;
+      padding: 1.5rem 0;
+      text-align: center;
+    }
+
+    footer .social a {
+      color: white;
+      margin: 0 10px;
+      font-size: 1.2rem;
+      text-decoration: none;
+    }
+
+    footer .social a:hover {
+      color: #ff9900;
     }
   </style>
 </head>
@@ -168,13 +187,15 @@
   <!-- Footer -->
   <footer>
     <div class="social">
-      <a href="https://wa.me/254726459569" target="_blank">WhatsApp</a> |
-      <a href="https://vm.tiktok.com/ZMBp1K8cq/" target="_blank">TikTok</a> |
-      <a href="https://www.facebook.com/janet.wanjiru.940" target="_blank">Facebook</a> |
-      <a href="https://instagram.com/rehobothcollections" target="_blank">Instagram</a>
+      <a href="https://wa.me/254726459569" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://vm.tiktok.com/ZMBp1K8cq/" target="_blank"><i class="fab fa-tiktok"></i></a>
+      <a href="https://www.facebook.com/janet.wanjiru.940" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://instagram.com/rehobothcollections" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="mailto:joemutugi291@gmail.com"><i class="fas fa-envelope"></i></a>
     </div>
     <p>&copy; 2025 Rehoboth Collections. Designed by Eng. Blessed Joe.</p>
   </footer>
+  
 
   <script>
     const payment = document.getElementById('payment');
@@ -198,8 +219,18 @@
       }
     });
 
-    // Prepare order summary and total for email
-    document.getElementById('checkoutForm').addEventListener('submit', function () {
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const count = cart.reduce((total, item) => total + item.quantity, 0);
+      const cartCount = document.getElementById('cart-count');
+      if (cartCount) {
+        cartCount.textContent = count;
+      }
+    }
+
+    updateCartCount();
+
+    document.getElementById('checkoutForm').addEventListener('submit', function (e) {
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
       let summary = '';
       let total = 0;
@@ -211,74 +242,44 @@
 
       document.getElementById('orderSummary').value = summary || 'No items in cart';
       document.getElementById('totalPaid').value = `Ksh ${total}`;
-    });
 
-    function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const count = cart.reduce((total, item) => total + item.quantity, 0);
-      const cartCount = document.getElementById('cart-count');
-      if (cartCount) {
-        cartCount.textContent = count;
-      }
-    }
+      const customerName = document.getElementById('fullName').value;
+      localStorage.setItem('customerName', customerName);
 
-    updateCartCount();
-    document.getElementById('checkoutForm').addEventListener('submit', function (e) {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        let summary = '';
-        let total = 0;
-      
-        cart.forEach(item => {
-          summary += `${item.name} (Qty: ${item.quantity}) - Ksh ${item.price * item.quantity}\n`;
-          total += item.price * item.quantity;
+      const deliveryDate = new Date();
+      deliveryDate.setHours(deliveryDate.getHours() + 24);
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      const logoImg = new Image();
+      logoImg.src = 'logo.png';
+
+      logoImg.onload = function () {
+        doc.addImage(logoImg, 'PNG', 10, 10, 30, 30);
+
+        doc.setFontSize(18);
+        doc.text("Rehoboth Collections - Invoice", 50, 20);
+
+        doc.setFontSize(12);
+        doc.text(`Name: ${document.getElementById('fullName').value}`, 10, 50);
+        doc.text(`Email: ${document.getElementById('email').value}`, 10, 60);
+        doc.text(`Address: ${document.getElementById('address').value}`, 10, 70);
+        doc.text(`Town/Market: ${document.getElementById('town').value}`, 10, 80);
+        doc.text(`Delivery Date: ${deliveryDate.toDateString()}`, 10, 90);
+        doc.text(`Payment Method: ${document.getElementById('payment').value}`, 10, 100);
+
+        doc.text("Order Summary:", 10, 115);
+        const summaryLines = summary.split('\n');
+        summaryLines.forEach((line, i) => {
+          doc.text(line, 15, 125 + i * 8);
         });
-      
-        document.getElementById('orderSummary').value = summary || 'No items in cart';
-        document.getElementById('totalPaid').value = `Ksh ${total}`;
 
-           // Save customer name for PDF invoice
-    const customerName = document.getElementById('fullName').value;
-    localStorage.setItem('customerName', customerName);
-      
-        // ⏱️ Auto-calculate delivery date (24 hours later)
-        const deliveryDate = new Date();
-        deliveryDate.setHours(deliveryDate.getHours() + 24);
-      
-        // 📄 Generate PDF invoice
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-      
-        const logoImg = new Image();
-        logoImg.src = 'logo.png';
-      
-        logoImg.onload = function () {
-          doc.addImage(logoImg, 'PNG', 10, 10, 30, 30);
-      
-          doc.setFontSize(18);
-          doc.text("Rehoboth Collections - Invoice", 50, 20);
-      
-          doc.setFontSize(12);
-          doc.text(`Name: ${document.getElementById('fullName').value}`, 10, 50);
-          doc.text(`Email: ${document.getElementById('email').value}`, 10, 60);
-          doc.text(`Address: ${document.getElementById('address').value}`, 10, 70);
-          doc.text(`Town/Market: ${document.getElementById('town').value}`, 10, 80);
-          doc.text(`Delivery Date: ${deliveryDate.toDateString()}`, 10, 90);
-          doc.text(`Payment Method: ${document.getElementById('payment').value}`, 10, 100);
-      
-          doc.text("Order Summary:", 10, 115);
-          const summaryLines = summary.split('\n');
-          summaryLines.forEach((line, i) => {
-            doc.text(line, 15, 125 + i * 8);
-          });
-      
-          doc.text(`Total Paid: Ksh ${total}`, 10, 135 + summaryLines.length * 8);
-      
-          // 💾 Save PDF
-          doc.save('Rehoboth_Invoice.pdf');
-        };
-      });
-      
+        doc.text(`Total Paid: Ksh ${total}`, 10, 135 + summaryLines.length * 8);
+
+        doc.save('Rehoboth_Invoice.pdf');
+      };
+    });
   </script>
-
 </body>
 </html>
