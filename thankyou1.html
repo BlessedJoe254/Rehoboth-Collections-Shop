@@ -5,94 +5,88 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Thank You - Rehoboth Collections</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f7f7f7;
-    }
-
-    .thank-you-container {
-      max-width: 700px;
-      margin: 5rem auto;
-      background: white;
-      padding: 3rem 2rem;
+      background-color: #f7f7f7;
       text-align: center;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 4rem 2rem;
     }
-
-    .thank-you-container img {
-      width: 80px;
-      margin-bottom: 1.5rem;
+    .container {
+      max-width: 600px;
+      background: white;
+      margin: auto;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-
-    .thank-you-container h2 {
-      font-size: 2rem;
-      color: #333;
-      margin-bottom: 1rem;
+    h1 {
+      color: #28a745;
     }
-
-    .thank-you-container p {
+    p {
+      margin-top: 1rem;
       color: #555;
-      font-size: 1.1rem;
-      line-height: 1.6;
     }
-
-    .thank-you-container a {
+    .btn {
       display: inline-block;
       margin-top: 2rem;
-      padding: 0.8rem 2rem;
+      padding: 0.8rem 1.5rem;
       background-color: #ff6600;
       color: white;
-      text-decoration: none;
+      border: none;
       border-radius: 6px;
-      font-weight: bold;
-    }
-
-    .thank-you-container a:hover {
-      background-color: #e65c00;
+      text-decoration: none;
+      font-size: 1rem;
     }
   </style>
 </head>
 <body>
-
-  <!-- Header -->
-  <header>
-    <div class="header-container">
-      <div class="logo-title">
-        <img src="logo.png" alt="Rehoboth Logo" class="logo">
-        <h1><span class="highlight">Rehoboth</span> Collections</h1>
-      </div>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="products.html">Products</a>
-        <a href="cart.html">Cart</a>
-        <a href="checkout.html">Checkout</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Thank You Message -->
-  <div class="thank-you-container">
-    <img src="logo.png" alt="Rehoboth Logo" />
-    <h2>Thank You for Your Order!</h2>
-    <p>We’ve received your order and sent you a confirmation email. Your items will be delivered within 24 hours.</p>
-    <p>For any queries, feel free to contact us.</p>
-    <a href="products.html">Continue Shopping</a>
+  <div class="container">
+    <h1>Thank You for Your Order!</h1>
+    <p>Your order has been received. A confirmation email has been sent to you.</p>
+    <p>Your invoice will download shortly.</p>
+    <a href="index.html" class="btn">Return to Home</a>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <div class="social">
-      <a href="https://facebook.com/rehobothcollections" target="_blank">Facebook</a> |
-      <a href="https://instagram.com/rehobothcollections" target="_blank">Instagram</a> |
-      <a href="https://twitter.com/rehobothco" target="_blank">Twitter</a>
-    </div>
-    <p>&copy; 2025 Rehoboth Collections. Designed by Eng. Blessed Joe.</p>
-  </footer>
+  <script>
+    window.onload = () => {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const customerName = localStorage.getItem('customerName') || 'Customer';
+      const deliveryDate = new Date(Date.now() + 86400000).toLocaleDateString();
 
+      let total = 0;
+      let summary = '';
+
+      cart.forEach(item => {
+        const subtotal = item.quantity * item.price;
+        total += subtotal;
+        summary += `${item.name} x ${item.quantity} - Ksh ${subtotal}\n`;
+      });
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      doc.setFontSize(14);
+      doc.text("Rehoboth Collections", 20, 20);
+      doc.text(`Invoice for: ${customerName}`, 20, 30);
+      doc.text(`Delivery Date: ${deliveryDate}`, 20, 40);
+      doc.text("Items Ordered:", 20, 55);
+      doc.setFontSize(12);
+      doc.text(summary || "No items found", 20, 65);
+      doc.setFontSize(14);
+      doc.text(`Total Paid: Ksh ${total}`, 20, 150);
+      doc.text("Thank you for shopping with us!", 20, 170);
+
+      // Add logo
+      const logoImg = new Image();
+      logoImg.src = 'logo.png'; // Ensure logo.png exists in your project
+      logoImg.onload = function () {
+        doc.addImage(logoImg, 'PNG', 150, 10, 40, 20);
+        doc.save(`Rehoboth_Invoice_${Date.now()}.pdf`);
+      };
+    };
+  </script>
+  
 </body>
 </html>
