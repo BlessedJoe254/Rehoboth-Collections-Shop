@@ -583,3 +583,27 @@ footer .social a:hover {
   font-weight: 700;
   color: #002147;
 }
+<style>
+  footer {
+    background-color: #001f4d;
+    color: white;
+    padding: 1.5rem 0;
+    text-align: center;
+  }
+
+  footer .social a {
+    color: white;
+    margin: 0 10px;
+    font-size: 1.2rem;
+    text-decoration: none;
+  }
+
+  footer .social a:hover {
+    color: #ff9900;
+  }
+
+  footer p {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+</style>
